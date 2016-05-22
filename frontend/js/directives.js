@@ -53,37 +53,17 @@ angular.module('esn.chat')
         scope.messageContent = '';
 
         scope.createMessage = function() {
-          // var avatar = localCameraScreenshot.shoot(CHAT_AVATAR_SIZE);
-          //
-          // var chatMsgData = {
-          //   author: easyRTCService.myEasyrtcid(),
-          //   authorAvatar: avatar ? avatar.src : null,
-          //   published: Date.now(),
-          //   message: scope.messageContent,
-          //   displayName: getMyDisplayName()
-          // };
-          // chat.sendMessage(new ChatMessage(chatMsgData));
-          // scope.messageContent = '';
-          function updateStatusDiv(state) {
-            console.log("TEST SEND FILE", state);
-            return true;
-          }
-          easyRTCService.getAllAttendants().forEach(function(id) {
-              var fileSender = easyrtc_ft.buildFileSender(id, updateStatusDiv);
-              var parts = [
-                new Blob(['you construct a file...'], {type: 'text/plain'}),
-                ' Same way as you do with blob',
-                new Uint16Array([33])
-              ];
+          var avatar = localCameraScreenshot.shoot(CHAT_AVATAR_SIZE);
 
-              // Construct a file
-              var file = new File(parts, 'sample.txt', {
-                  lastModified: new Date(0), // optional - default = now
-                  type: "overide/mimetype" // optional - default = ''
-              });
-              fileSender([file], true /* assume binary */);
-          });
-
+          var chatMsgData = {
+            author: easyRTCService.myEasyrtcid(),
+            authorAvatar: avatar ? avatar.src : null,
+            published: Date.now(),
+            message: scope.messageContent,
+            displayName: getMyDisplayName()
+          };
+          chat.sendMessage(new ChatMessage(chatMsgData));
+          scope.messageContent = '';
         };
 
         scope.$on('chat:window:visibility', function(event, data) {
