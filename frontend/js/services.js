@@ -46,7 +46,12 @@ angular.module('esn.chat')
     downloadInvitations.add = function (addedDownloadInvitation) {
       downloadInvitations.list.push(addedDownloadInvitation);
     }
-
+    downloadInvitations.remove = function (downloadInvitation) {
+      var index = downloadInvitations.list.indexOf(downloadInvitation)
+      if (index > -1){
+        downloadInvitations.list.splice(index, 1);
+      }
+    }
     return downloadInvitations;
   })
   .factory('yArraySynchronizer', ['yjsService', '$window', function(yjsService, $window) {

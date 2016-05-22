@@ -23,8 +23,8 @@
                     span.message Download proposition from {{::downloadInvitation.displayName}}  :
                     div(ng-repeat="fileName in downloadInvitation.fileNames")
                       span.filename {{::fileName}}
-                    a(ng-click="downloadInvitation.wasAccepted(true)") accept
-                    span.divider / 
-                    a(ng-click="downloadInvitation.wasAccepted(false)") reject
+                    a(ng-click="downloadAction(downloadInvitation, true)") accept
+                    span.divider /
+                    a(ng-click="downloadAction(downloadInvitation, false)") reject
       .flexbox-item.footer
         chat-message-editor

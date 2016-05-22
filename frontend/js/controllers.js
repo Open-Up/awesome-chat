@@ -16,5 +16,9 @@ angular.module('esn.chat')
     $scope.$on('downloadInvitation', function (event, otherGuy, fileNameList, wasAccepted) {
       DownloadInvitations.add(createDownloadInvitation(otherGuy, fileNameList, wasAccepted))
     });
-
+      
+      $scope.downloadAction = function (inviation, accepted) {
+          inviation.wasAccepted(accepted);
+          DownloadInvitations.remove(inviation);
+      }
   });
