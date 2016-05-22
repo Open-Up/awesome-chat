@@ -13,5 +13,15 @@
         .fill-area-content.flexbox-item-grow(chat-auto-scroll)
           .msg-container-base
             chat-message-display(ng-repeat="message in messages" chat-message="message")
+            div(ng-repeat="downloadInvitation in downloadInvitations")
+              .msg-container.base-sent
+                .messages.msg-sent(ng-class="{'myself': myself}")
+                  .nopadding
+                    span.published.small {{::downloadInvitation.displayName}} {{::downloadInvitation.published | amDateFormat:'h:mm a'}}
+                    span.divider :
+                    br
+                    span.message Download proposition from {{::downloadInvitation.displayName}}  :
+                    div(ng-repeat="fileName in downloadInvitation.fileNames")
+                      span.filename {{::fileName}}
       .flexbox-item.footer
         chat-message-editor

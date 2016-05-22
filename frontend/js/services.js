@@ -13,6 +13,40 @@ angular.module('esn.chat')
 
     return ChatMessage;
   })
+  .factory('DownloadInvitation', function() {
+
+    function DownloadInvitation(object) {
+      this.author = object.author;
+      this.fileNames = object.fileNames;
+      this.published = object.published;
+      this.displayName = object.displayName;
+    }
+
+    return DownloadInvitation;
+  })
+  .factory('createDownloadInvitation', ['DownloadInvitation', 'currentConferenceState', function(DownloadInvitation, currentConferenceState) {
+
+    return function (easyRtcId, fileNames) {
+      var downloadInvitationData = {
+        author: easyRtcId,
+        published: Date.now(),
+        fileNames: fileNames,
+        displayName: currentConferenceState.getAttendeeByEasyrtcid(easyRtcId).displayName
+      };
+      return new DownloadInvitation(downloadInvitationData);
+    }
+  }])
+  .factory('DownloadInvitations', function() {
+    var downloadInvitations = {}
+
+    downloadInvitations.list = []
+      
+    downloadInvitations.add = function (addedDownloadInvitation) {
+      downloadInvitations.list.push(addedDownloadInvitation);
+    }
+
+    return downloadInvitations;
+  })
   .factory('yArraySynchronizer', ['yjsService', '$window', function(yjsService, $window) {
 
     function onChange(jsArray) {
