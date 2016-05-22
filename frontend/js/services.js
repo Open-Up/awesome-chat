@@ -20,18 +20,20 @@ angular.module('esn.chat')
       this.fileNames = object.fileNames;
       this.published = object.published;
       this.displayName = object.displayName;
+      this.wasAccepted = object.wasAccepted;
     }
 
     return DownloadInvitation;
   })
   .factory('createDownloadInvitation', ['DownloadInvitation', 'currentConferenceState', function(DownloadInvitation, currentConferenceState) {
 
-    return function (easyRtcId, fileNames) {
+    return function (easyRtcId, fileNames, wasAccepted) {
       var downloadInvitationData = {
         author: easyRtcId,
         published: Date.now(),
         fileNames: fileNames,
-        displayName: currentConferenceState.getAttendeeByEasyrtcid(easyRtcId).displayName
+        displayName: currentConferenceState.getAttendeeByEasyrtcid(easyRtcId).displayName,
+        wasAccepted: wasAccepted
       };
       return new DownloadInvitation(downloadInvitationData);
     }
